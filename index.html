@@ -23,7 +23,6 @@
   --muted: #6B6B8A;
   --green: #00E5A0;
   --red: #FF3D6B;
-  --blue: #4D9FFF;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -56,10 +55,10 @@ body {
 .screen::-webkit-scrollbar { width:0; }
 
 /* ===== FLASH ===== */
-.flash { position:fixed; inset:0; pointer-events:none; opacity:0; transition:opacity 0.1s; z-index:999; }
+.flash { position:fixed; inset:0; pointer-events:none; opacity:0; transition:opacity 0.1s; z-index:9999; }
 .flash.on { opacity:1; }
-.flash.fc { background:rgba(0,229,160,0.2); }
-.flash.fp { background:rgba(255,61,107,0.2); }
+.flash.fc { background:rgba(0,229,160,0.22); }
+.flash.fp { background:rgba(255,61,107,0.22); }
 
 /* ===== SHARED COMPONENTS ===== */
 .label {
@@ -94,9 +93,9 @@ body {
 .chip {
   background:var(--surface); border:1.5px solid var(--surface2); border-radius:20px;
   padding:6px 14px; font-size:12px; font-weight:700; cursor:pointer; color:var(--muted);
-  transition:all 0.15s;
+  border:none; transition:all 0.15s;
 }
-.chip:hover { border-color:var(--orange); color:var(--orange); }
+.chip:hover { color:var(--orange); }
 
 /* ===== TOGGLE SWITCH ===== */
 .toggle-wrap { display:flex; align-items:center; justify-content:space-between; width:100%; padding:14px 16px; background:var(--surface); border-radius:14px; }
@@ -105,55 +104,30 @@ body {
 .toggle-desc { font-size:11px; color:var(--muted); margin-top:2px; }
 .toggle { position:relative; width:46px; height:26px; flex-shrink:0; margin-left:12px; }
 .toggle input { opacity:0; width:0; height:0; }
-.toggle-slider {
-  position:absolute; inset:0; background:var(--surface2); border-radius:13px;
-  cursor:pointer; transition:background 0.2s;
-}
-.toggle-slider::before {
-  content:''; position:absolute; width:20px; height:20px; left:3px; top:3px;
-  background:white; border-radius:50%; transition:transform 0.2s;
-}
+.toggle-slider { position:absolute; inset:0; background:var(--surface2); border-radius:13px; cursor:pointer; transition:background 0.2s; }
+.toggle-slider::before { content:''; position:absolute; width:20px; height:20px; left:3px; top:3px; background:white; border-radius:50%; transition:transform 0.2s; }
 .toggle input:checked + .toggle-slider { background:var(--orange); }
 .toggle input:checked + .toggle-slider::before { transform:translateX(20px); }
 
 /* ===== STEPPER ===== */
 .stepper { display:flex; align-items:center; gap:16px; }
-.stepper-btn {
-  width:36px; height:36px; border-radius:50%; background:var(--surface2);
-  border:none; color:var(--text); font-size:20px; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  transition:background 0.15s;
-}
+.stepper-btn { width:36px; height:36px; border-radius:50%; background:var(--surface2); border:none; color:var(--text); font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.15s; }
 .stepper-btn:hover { background:var(--surface3); }
 .stepper-btn:disabled { opacity:0.3; cursor:not-allowed; }
 .stepper-val { font-family:'Bebas Neue', sans-serif; font-size:36px; color:var(--orange); min-width:32px; text-align:center; }
 
 /* ===== INPUT ===== */
-.input-field {
-  width:100%; background:var(--surface); border:1.5px solid var(--surface2);
-  border-radius:14px; padding:14px 16px; color:var(--text);
-  font-family:'Syne', sans-serif; font-size:15px; font-weight:600;
-  outline:none; transition:border-color 0.15s;
-}
+.input-field { width:100%; background:var(--surface); border:1.5px solid var(--surface2); border-radius:14px; padding:14px 16px; color:var(--text); font-family:'Syne', sans-serif; font-size:15px; font-weight:600; outline:none; transition:border-color 0.15s; }
 .input-field:focus { border-color:var(--orange); }
 .input-field::placeholder { color:var(--muted); }
 
 /* ===== HOME SCREEN ===== */
 #home-screen { gap:12px; }
 .logo-wrap { text-align:center; margin-bottom:4px; }
-.logo-main {
-  font-family:'Bebas Neue', sans-serif;
-  font-size:64px; letter-spacing:5px; line-height:0.9;
-  background:linear-gradient(160deg, #FF8C42 0%, #FF5C00 55%, #CC3300 100%);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; display:block;
-}
+.logo-main { font-family:'Bebas Neue', sans-serif; font-size:64px; letter-spacing:5px; line-height:0.9; background:linear-gradient(160deg, #FF8C42 0%, #FF5C00 55%, #CC3300 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; display:block; }
 .logo-sub { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-top:6px; }
 .deck-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px; width:100%; }
-.deck-btn {
-  background:var(--surface); border:1.5px solid transparent; border-radius:14px;
-  padding:12px 5px; cursor:pointer; transition:all 0.18s; text-align:center;
-  position:relative; overflow:hidden;
-}
+.deck-btn { background:var(--surface); border:1.5px solid transparent; border-radius:14px; padding:12px 5px; cursor:pointer; transition:all 0.18s; text-align:center; }
 .deck-btn:hover { border-color:rgba(255,92,0,0.35); transform:translateY(-1px); }
 .deck-btn.sel { border-color:var(--orange); background:rgba(255,92,0,0.08); }
 .deck-btn.custom-card { border-style:dashed; border-color:var(--surface2); }
@@ -161,29 +135,18 @@ body {
 .deck-btn .de { font-size:24px; display:block; margin-bottom:4px; }
 .deck-btn .dn { font-size:10px; font-weight:800; letter-spacing:0.2px; line-height:1.2; }
 .deck-btn .dc { font-size:9px; color:var(--muted); margin-top:2px; }
-.add-deck-btn {
-  background:transparent; border:1.5px dashed var(--surface2); border-radius:14px;
-  padding:12px 5px; cursor:pointer; transition:all 0.18s; text-align:center;
-  color:var(--muted);
-}
+.add-deck-btn { background:transparent; border:1.5px dashed var(--surface2); border-radius:14px; padding:12px 5px; cursor:pointer; transition:all 0.18s; text-align:center; color:var(--muted); }
 .add-deck-btn:hover { border-color:var(--orange); color:var(--orange); }
 .add-deck-btn .de { font-size:24px; display:block; margin-bottom:4px; }
 .add-deck-btn .dn { font-size:10px; font-weight:800; }
 .time-row { display:flex; gap:7px; width:100%; }
-.time-btn {
-  flex:1; background:var(--surface); border:1.5px solid transparent; border-radius:12px;
-  padding:11px 5px; cursor:pointer; transition:all 0.18s; font-family:'Syne', sans-serif; color:var(--text);
-}
+.time-btn { flex:1; background:var(--surface); border:1.5px solid transparent; border-radius:12px; padding:11px 5px; cursor:pointer; transition:all 0.18s; font-family:'Syne', sans-serif; color:var(--text); }
 .time-btn:hover { border-color:rgba(255,92,0,0.35); }
 .time-btn.sel { border-color:var(--orange); background:rgba(255,92,0,0.08); }
 .time-btn .tv { font-family:'Bebas Neue', sans-serif; font-size:28px; color:var(--orange); display:block; }
 .time-btn .tl { font-size:9px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
 .mode-row { display:flex; gap:7px; width:100%; }
-.mode-btn {
-  flex:1; background:var(--surface); border:1.5px solid transparent; border-radius:12px;
-  padding:12px 8px; cursor:pointer; transition:all 0.18s; text-align:center;
-  font-family:'Syne', sans-serif; color:var(--muted);
-}
+.mode-btn { flex:1; background:var(--surface); border:1.5px solid transparent; border-radius:12px; padding:12px 8px; cursor:pointer; transition:all 0.18s; text-align:center; font-family:'Syne', sans-serif; color:var(--muted); }
 .mode-btn:hover { border-color:rgba(255,92,0,0.35); }
 .mode-btn.sel { border-color:var(--orange); background:rgba(255,92,0,0.08); color:var(--text); }
 .mode-btn .me { font-size:22px; display:block; margin-bottom:4px; }
@@ -193,25 +156,13 @@ body {
 #deck-builder-screen { gap:12px; }
 .word-list { width:100%; display:flex; flex-direction:column; gap:6px; max-height:260px; overflow-y:auto; }
 .word-list::-webkit-scrollbar { width:0; }
-.word-item {
-  display:flex; align-items:center; justify-content:space-between;
-  background:var(--surface); border-radius:10px; padding:10px 14px;
-  font-size:14px; font-weight:600;
-}
+.word-item { display:flex; align-items:center; justify-content:space-between; background:var(--surface); border-radius:10px; padding:10px 14px; font-size:14px; font-weight:600; }
 .word-remove { background:none; border:none; color:var(--red); cursor:pointer; font-size:18px; padding:0 0 0 8px; line-height:1; }
 .input-row { display:flex; gap:8px; width:100%; }
-.btn-add {
-  background:var(--orange); color:white; border:none; border-radius:12px;
-  padding:14px 18px; font-family:'Syne', sans-serif; font-size:14px; font-weight:800;
-  cursor:pointer; flex-shrink:0; transition:filter 0.15s;
-}
+.btn-add { background:var(--orange); color:white; border:none; border-radius:12px; padding:14px 18px; font-family:'Syne', sans-serif; font-size:14px; font-weight:800; cursor:pointer; flex-shrink:0; transition:filter 0.15s; }
 .btn-add:hover { filter:brightness(1.1); }
 .emoji-row { display:flex; gap:8px; flex-wrap:wrap; }
-.emoji-opt {
-  width:42px; height:42px; border-radius:10px; background:var(--surface);
-  border:1.5px solid transparent; font-size:22px; cursor:pointer;
-  display:flex; align-items:center; justify-content:center; transition:all 0.15s;
-}
+.emoji-opt { width:42px; height:42px; border-radius:10px; background:var(--surface); border:1.5px solid transparent; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
 .emoji-opt.sel { border-color:var(--orange); background:rgba(255,92,0,0.1); }
 
 /* ===== TEAM SETUP ===== */
@@ -221,64 +172,99 @@ body {
 .section-card-row { display:flex; align-items:center; justify-content:space-between; }
 .section-card-label { font-size:13px; font-weight:700; color:var(--muted); margin-bottom:10px; text-transform:uppercase; letter-spacing:1px; }
 
-/* ===== TEAM TURN SCREEN ===== */
+/* ===== TEAM TURN ===== */
 #team-turn-screen { justify-content:center; text-align:center; gap:20px; }
 .tt-label { font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
 .tt-team { font-family:'Bebas Neue', sans-serif; font-size:72px; letter-spacing:3px; color:var(--orange); line-height:1; }
 .tt-subtitle { font-size:15px; color:var(--muted); line-height:1.6; }
 .tt-scores { width:100%; display:flex; flex-direction:column; gap:8px; }
-.tt-score-row {
-  display:flex; align-items:center; justify-content:space-between;
-  background:var(--surface); border-radius:12px; padding:12px 16px;
-}
+.tt-score-row { display:flex; align-items:center; justify-content:space-between; background:var(--surface); border-radius:12px; padding:12px 16px; }
 .tt-score-name { font-size:14px; font-weight:700; }
 .tt-score-val { font-family:'Bebas Neue', sans-serif; font-size:28px; color:var(--orange); }
 
 /* ===== COUNTDOWN ===== */
 #cd-screen { justify-content:center; text-align:center; gap:16px; }
-.cd-num {
-  font-family:'Bebas Neue', sans-serif; font-size:180px; line-height:1;
-  background:linear-gradient(160deg, #FF8C42, #FF5C00);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  animation:cbounce 0.65s ease-in-out infinite alternate;
-}
+.cd-num { font-family:'Bebas Neue', sans-serif; font-size:180px; line-height:1; background:linear-gradient(160deg, #FF8C42, #FF5C00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:cbounce 0.65s ease-in-out infinite alternate; }
 @keyframes cbounce { from { transform:scale(0.92); } to { transform:scale(1.08); } }
 .cd-hint { font-size:14px; color:var(--muted); line-height:1.8; }
-.cd-tilt-hint {
-  background:rgba(255,92,0,0.08); border:1px solid rgba(255,92,0,0.2);
-  border-radius:12px; padding:12px 16px; font-size:13px; color:var(--orange-light); line-height:1.6;
+.cd-tilt-box { background:rgba(255,92,0,0.08); border:1px solid rgba(255,92,0,0.2); border-radius:12px; padding:12px 20px; font-size:13px; color:var(--orange-light); line-height:1.7; }
+
+/* ===== PLAY SCREEN — PORTRAIT BASE ===== */
+#play-screen {
+  gap:10px;
+  justify-content:space-between;
+  padding:12px 20px calc(16px + var(--safe-bottom));
+  padding-top:calc(12px + var(--safe-top));
+  background:var(--bg);
 }
 
-/* ===== PLAY SCREEN ===== */
-#play-screen { gap:10px; justify-content:space-between; padding:12px 20px calc(16px + var(--safe-bottom)); padding-top:calc(12px + var(--safe-top)); }
-.timer-track { width:100%; height:5px; background:var(--surface2); border-radius:3px; overflow:hidden; flex-shrink:0; }
-.timer-fill {
-  height:100%; width:100%;
-  background:linear-gradient(90deg, var(--orange), var(--orange-light));
-  border-radius:3px; transition:width 1s linear, background 0.5s;
+/* ===== PLAY SCREEN — LANDSCAPE MODE (CSS rotation for portrait devices / iOS) ===== */
+/*
+  This rotates the play screen 90° CW so it fills the portrait viewport as landscape.
+  Math: place element at top-right corner, rotate around that anchor.
+  Result: element fills the full screen, appearing landscape.
+*/
+#play-screen.landscape-mode {
+  position:fixed !important;
+  top:0 !important; left:0 !important;
+  width:100vh !important;   /* becomes landscape width */
+  height:100vw !important;  /* becomes landscape height */
+  transform-origin:top left !important;
+  transform:rotate(90deg) translateX(0) translateY(-100%) !important;
+  /* translateY(-100%) in the rotated space shifts the element into view */
+  opacity:1 !important;
+  pointer-events:all !important;
+  z-index:500 !important;
+  overflow:hidden !important;
+  padding:16px 28px !important;
+  gap:8px !important;
 }
+
+.timer-track { width:100%; height:5px; background:var(--surface2); border-radius:3px; overflow:hidden; flex-shrink:0; }
+.timer-fill { height:100%; width:100%; background:linear-gradient(90deg, var(--orange), var(--orange-light)); border-radius:3px; transition:width 1s linear, background 0.5s; }
 .timer-fill.warn { background:linear-gradient(90deg, var(--red), #FF7043); }
+
 .play-meta { display:flex; justify-content:space-between; align-items:center; width:100%; flex-shrink:0; }
 .play-deck-name { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
 .play-team-name { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--orange); font-weight:700; }
+
+/* End-round escape button */
+.end-round-btn {
+  background:rgba(255,255,255,0.06); border:none; border-radius:50%;
+  width:34px; height:34px; color:var(--muted); font-size:15px;
+  cursor:pointer; flex-shrink:0; transition:background 0.15s;
+  display:flex; align-items:center; justify-content:center;
+}
+.end-round-btn:hover { background:rgba(255,61,107,0.2); color:var(--red); }
+
 .play-card {
   flex:1; width:100%; background:var(--surface);
   border:1.5px solid rgba(255,92,0,0.18); border-radius:28px;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:28px 22px; position:relative; overflow:hidden;
+  padding:24px 20px; position:relative; overflow:hidden;
   transition:transform 0.15s, opacity 0.15s;
 }
-.play-card::before {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse at 50% 0%, rgba(255,92,0,0.06), transparent 65%);
-  pointer-events:none;
-}
+.play-card::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 0%, rgba(255,92,0,0.06), transparent 65%); pointer-events:none; }
+
 .pc-word {
   font-family:'Bebas Neue', sans-serif;
-  font-size:clamp(46px, 12vw, 72px);
-  text-align:center; line-height:1.1; letter-spacing:2px; color:var(--text);
+  font-size:clamp(50px, 13vw, 80px);
+  text-align:center; line-height:1.08; letter-spacing:2px; color:var(--text);
+  transition:font-size 0.1s;
 }
-.tilt-hint { font-size:12px; color:var(--muted); text-align:center; margin-top:14px; }
+/* Bigger word in landscape since we have more horizontal space */
+#play-screen.landscape-mode .pc-word {
+  font-size:clamp(72px, 14vmax, 110px);
+}
+
+.tilt-guide {
+  display:none;
+  margin-top:14px;
+  font-size:12px; color:var(--muted);
+  text-align:center; line-height:1.8;
+}
+#play-screen.landscape-mode .tilt-guide { display:block; }
+
 .stats-row { display:flex; gap:8px; width:100%; flex-shrink:0; }
 .stat-box { flex:1; background:var(--surface); border-radius:12px; padding:9px 5px; text-align:center; }
 .stat-box .sv { font-family:'Bebas Neue', sans-serif; font-size:34px; line-height:1; }
@@ -286,51 +272,31 @@ body {
 .stat-box.sc .sv { color:var(--green); }
 .stat-box.st .sv { color:var(--orange); }
 .stat-box.sp .sv { color:var(--red); }
+
+/* Buttons hidden in landscape (tilt-only), shown as fallback on desktop */
 .action-row { display:flex; gap:10px; width:100%; flex-shrink:0; }
-.btn-pass {
-  flex:1; background:var(--surface); color:var(--red); border:1.5px solid var(--red);
-  border-radius:16px; padding:18px; font-size:15px; font-weight:800;
-  font-family:'Syne', sans-serif; cursor:pointer; transition:all 0.15s;
-  text-transform:uppercase; letter-spacing:1px;
-}
+#play-screen.landscape-mode .action-row { display:none; }
+
+.btn-pass { flex:1; background:var(--surface); color:var(--red); border:1.5px solid var(--red); border-radius:16px; padding:18px; font-size:15px; font-weight:800; font-family:'Syne', sans-serif; cursor:pointer; transition:all 0.15s; text-transform:uppercase; letter-spacing:1px; }
 .btn-pass:hover { background:rgba(255,61,107,0.1); }
-.btn-correct {
-  flex:2; background:var(--green); color:#0A0A0F; border:none;
-  border-radius:16px; padding:18px; font-size:15px; font-weight:800;
-  font-family:'Syne', sans-serif; cursor:pointer; transition:all 0.15s;
-  text-transform:uppercase; letter-spacing:1px;
-}
+.btn-correct { flex:2; background:var(--green); color:#0A0A0F; border:none; border-radius:16px; padding:18px; font-size:15px; font-weight:800; font-family:'Syne', sans-serif; cursor:pointer; transition:all 0.15s; text-transform:uppercase; letter-spacing:1px; }
 .btn-correct:hover { filter:brightness(1.08); }
 
 /* ===== ROUND RESULTS ===== */
 #round-results-screen { gap:10px; }
 .r-header { text-align:center; flex-shrink:0; }
 .r-title { font-family:'Bebas Neue', sans-serif; font-size:48px; letter-spacing:4px; line-height:1; }
-.r-big {
-  font-family:'Bebas Neue', sans-serif; font-size:100px; line-height:1;
-  background:linear-gradient(160deg, var(--orange-light), var(--orange));
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-}
+.r-big { font-family:'Bebas Neue', sans-serif; font-size:100px; line-height:1; background:linear-gradient(160deg, var(--orange-light), var(--orange)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
 .r-meta { font-size:13px; color:var(--muted); margin-top:2px; }
-.r-list {
-  width:100%; flex:1; overflow-y:auto; min-height:0;
-  display:flex; flex-direction:column; gap:6px; padding-right:2px;
-}
+.r-list { width:100%; flex:1; overflow-y:auto; min-height:0; display:flex; flex-direction:column; gap:6px; padding-right:2px; }
 .r-list::-webkit-scrollbar { width:3px; }
 .r-list::-webkit-scrollbar-thumb { background:var(--surface2); border-radius:2px; }
-.ri {
-  display:flex; align-items:center; gap:10px;
-  background:var(--surface); border-radius:12px; padding:10px 14px;
-  font-size:14px; font-weight:700; flex-shrink:0;
-}
+.ri { display:flex; align-items:center; gap:10px; background:var(--surface); border-radius:12px; padding:10px 14px; font-size:14px; font-weight:700; flex-shrink:0; }
 .ri-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
 .ri.rc .ri-dot { background:var(--green); }
 .ri.rp .ri-dot { background:var(--red); }
 .ri-word { flex:1; }
-.ri-badge {
-  font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
-  padding:3px 8px; border-radius:6px;
-}
+.ri-badge { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:3px 8px; border-radius:6px; }
 .ri.rc .ri-badge { background:rgba(0,229,160,0.12); color:var(--green); }
 .ri.rp .ri-badge { background:rgba(255,61,107,0.12); color:var(--red); }
 .r-btns { display:flex; flex-direction:column; gap:8px; width:100%; flex-shrink:0; }
@@ -341,11 +307,7 @@ body {
 .ts-title { font-family:'Bebas Neue', sans-serif; font-size:48px; letter-spacing:4px; line-height:1; }
 .ts-subtitle { font-size:13px; color:var(--muted); margin-top:4px; }
 .leaderboard { width:100%; display:flex; flex-direction:column; gap:8px; flex:1; }
-.lb-row {
-  display:flex; align-items:center; gap:14px;
-  background:var(--surface); border-radius:14px; padding:14px 16px;
-  position:relative; overflow:hidden;
-}
+.lb-row { display:flex; align-items:center; gap:14px; background:var(--surface); border-radius:14px; padding:14px 16px; position:relative; overflow:hidden; }
 .lb-row.first { border:1.5px solid rgba(255,92,0,0.4); background:rgba(255,92,0,0.07); }
 .lb-rank { font-family:'Bebas Neue', sans-serif; font-size:32px; color:var(--muted); width:28px; text-align:center; }
 .lb-row.first .lb-rank { color:var(--orange); }
@@ -353,33 +315,27 @@ body {
 .lb-score { font-family:'Bebas Neue', sans-serif; font-size:36px; color:var(--orange); }
 .lb-crown { position:absolute; top:10px; right:14px; font-size:18px; }
 
-/* ===== SETTINGS SCREEN ===== */
+/* ===== SETTINGS ===== */
 #settings-screen { gap:12px; }
 .settings-group { width:100%; display:flex; flex-direction:column; gap:8px; }
 .settings-group-label { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
-
-/* ===== ANIMATIONS ===== */
-@keyframes slideIn { from { transform:translateX(20px); opacity:0; } to { transform:translateX(0); opacity:1; } }
-@keyframes pop { 0% { transform:scale(1); } 50% { transform:scale(1.04); } 100% { transform:scale(1); } }
 </style>
 </head>
 <body>
 <div id="app">
   <div class="flash" id="flash"></div>
 
-  <!-- ===== HOME SCREEN ===== -->
+  <!-- ===== HOME ===== -->
   <div class="screen active" id="home-screen">
     <div class="top-bar">
       <div class="logo-wrap">
         <span class="logo-main">HEADS UP</span>
         <div class="logo-sub">Free &bull; No sign-up &bull; No ads</div>
       </div>
-      <button class="chip" onclick="showScreen('settings-screen')">⚙️ Settings</button>
+      <button class="chip" onclick="showScreen('settings-screen')">⚙️</button>
     </div>
-
     <div class="label">Choose a deck</div>
     <div class="deck-grid" id="deckGrid"></div>
-
     <div class="label">Round length</div>
     <div class="time-row">
       <button class="time-btn" data-t="30" onclick="selTime(this)"><span class="tv">30</span><span class="tl">sec</span></button>
@@ -387,56 +343,44 @@ body {
       <button class="time-btn" data-t="90" onclick="selTime(this)"><span class="tv">90</span><span class="tl">sec</span></button>
       <button class="time-btn" data-t="120" onclick="selTime(this)"><span class="tv">2m</span><span class="tl">long</span></button>
     </div>
-
     <div class="label">Game mode</div>
     <div class="mode-row">
-      <button class="mode-btn sel" data-mode="solo" onclick="selMode(this)">
-        <span class="me">🎮</span><span class="ml">Solo</span>
-      </button>
-      <button class="mode-btn" data-mode="teams" onclick="selMode(this)">
-        <span class="me">👥</span><span class="ml">Teams</span>
-      </button>
+      <button class="mode-btn sel" data-mode="solo" onclick="selMode(this)"><span class="me">🎮</span><span class="ml">Solo</span></button>
+      <button class="mode-btn" data-mode="teams" onclick="selMode(this)"><span class="me">👥</span><span class="ml">Teams</span></button>
     </div>
-
     <button class="btn-primary" id="goBtn" disabled onclick="handleGo()">Choose a deck first</button>
   </div>
 
-  <!-- ===== DECK BUILDER SCREEN ===== -->
+  <!-- ===== DECK BUILDER ===== -->
   <div class="screen" id="deck-builder-screen">
     <div class="top-bar">
       <button class="btn-ghost" onclick="showScreen('home-screen')">← Back</button>
       <span style="font-size:14px;font-weight:800;" id="builderTitle">Create Deck</span>
-      <button class="btn-ghost" id="saveBtn" onclick="saveDeck()">Save</button>
+      <button class="btn-ghost" onclick="saveDeck()">Save</button>
     </div>
-
     <div class="label">Deck name</div>
     <input class="input-field" id="deckNameInput" placeholder="e.g. Office Jokes" maxlength="30">
-
     <div class="label">Icon</div>
     <div class="emoji-row" id="emojiRow"></div>
-
     <div class="label">Add words</div>
     <div class="input-row">
       <input class="input-field" id="wordInput" placeholder="Type a word or phrase" maxlength="40" onkeydown="if(event.key==='Enter')addWord()">
       <button class="btn-add" onclick="addWord()">Add</button>
     </div>
-
     <div class="label" id="wordCountLabel">Words (0)</div>
     <div class="word-list" id="wordList"></div>
-
     <div id="builderDeleteWrap" style="display:none;width:100%;margin-top:4px;">
       <button class="btn-secondary" style="color:var(--red);border-color:var(--red);" onclick="deleteDeck()">🗑 Delete this deck</button>
     </div>
   </div>
 
-  <!-- ===== TEAM SETUP SCREEN ===== -->
+  <!-- ===== TEAM SETUP ===== -->
   <div class="screen" id="team-setup-screen">
     <div class="top-bar">
       <button class="btn-ghost" onclick="showScreen('home-screen')">← Back</button>
       <span style="font-size:14px;font-weight:800;">Team Setup</span>
       <div style="width:48px;"></div>
     </div>
-
     <div class="section-card">
       <div class="section-card-label">Number of teams</div>
       <div class="section-card-row">
@@ -447,10 +391,8 @@ body {
         </div>
       </div>
     </div>
-
     <div class="label">Team names</div>
     <div class="team-name-list" id="teamNameList"></div>
-
     <div class="section-card">
       <div class="section-card-label">Rounds (each team plays this many times)</div>
       <div class="section-card-row">
@@ -461,11 +403,10 @@ body {
         </div>
       </div>
     </div>
-
     <button class="btn-primary" onclick="startTeamGame()">Start Game →</button>
   </div>
 
-  <!-- ===== PASS PHONE SCREEN ===== -->
+  <!-- ===== PASS PHONE ===== -->
   <div class="screen" id="team-turn-screen">
     <div class="top-bar">
       <button class="btn-ghost" onclick="goHome()">✕ End Game</button>
@@ -481,39 +422,47 @@ body {
     <button class="btn-primary" onclick="startCountdown()">▶ Play</button>
   </div>
 
-  <!-- ===== COUNTDOWN SCREEN ===== -->
+  <!-- ===== COUNTDOWN ===== -->
   <div class="screen" id="cd-screen">
     <div class="cd-num" id="cdNum">3</div>
     <div class="cd-hint">Hold your phone up to your forehead<br>and get your squad ready!</div>
-    <div class="cd-tilt-hint" id="cdTiltHint" style="display:none;">
-      📱 Tilt controls ON<br>
-      <strong>Face down = Got It &nbsp;|&nbsp; Face up = Pass</strong>
+    <div class="cd-tilt-box">
+      📱 Tilt controls<br>
+      <strong>Face down = ✓ Got It &nbsp;&nbsp;|&nbsp;&nbsp; Face up = ✕ Pass</strong>
     </div>
   </div>
 
   <!-- ===== PLAY SCREEN ===== -->
   <div class="screen" id="play-screen">
     <div class="timer-track"><div class="timer-fill" id="tFill"></div></div>
+
     <div class="play-meta">
       <div class="play-deck-name" id="playDeckName"></div>
       <div class="play-team-name" id="playTeamName"></div>
+      <button class="end-round-btn" onclick="endGame()" title="End round">✕</button>
     </div>
+
     <div class="play-card" id="playCard">
       <div class="pc-word" id="pcWord">Ready?</div>
-      <div class="tilt-hint" id="tiltPlayHint" style="display:none;">Tilt controls active 📱</div>
+      <div class="tilt-guide">
+        ← face up = Pass &nbsp;&nbsp; Got It = face down →
+      </div>
     </div>
+
     <div class="stats-row">
       <div class="stat-box sc"><div class="sv" id="sC">0</div><div class="sl">Got it</div></div>
       <div class="stat-box st"><div class="sv" id="sT">60</div><div class="sl">Secs</div></div>
       <div class="stat-box sp"><div class="sv" id="sP">0</div><div class="sl">Passed</div></div>
     </div>
-    <div class="action-row">
+
+    <!-- Shown only on desktop / as fallback when no tilt -->
+    <div class="action-row" id="actionRow">
       <button class="btn-pass" onclick="handlePass()">✕ Pass</button>
       <button class="btn-correct" onclick="handleCorrect()">✓ Got It!</button>
     </div>
   </div>
 
-  <!-- ===== ROUND RESULTS SCREEN ===== -->
+  <!-- ===== ROUND RESULTS ===== -->
   <div class="screen" id="round-results-screen">
     <div class="r-header">
       <div class="r-title" id="rrTitle">Round Over!</div>
@@ -524,7 +473,7 @@ body {
     <div class="r-btns" id="rrBtns"></div>
   </div>
 
-  <!-- ===== TEAM SCORES SCREEN ===== -->
+  <!-- ===== TEAM SCORES ===== -->
   <div class="screen" id="team-scores-screen">
     <div class="ts-header">
       <div class="ts-title">Leaderboard</div>
@@ -537,30 +486,19 @@ body {
     </div>
   </div>
 
-  <!-- ===== SETTINGS SCREEN ===== -->
+  <!-- ===== SETTINGS ===== -->
   <div class="screen" id="settings-screen">
     <div class="top-bar">
       <button class="btn-ghost" onclick="showScreen('home-screen')">← Back</button>
       <span style="font-size:14px;font-weight:800;">Settings</span>
       <div style="width:48px;"></div>
     </div>
-
     <div class="settings-group">
-      <div class="settings-group-label">Controls</div>
-      <div class="toggle-wrap">
-        <div class="toggle-info">
-          <div class="toggle-title">📱 Tilt Controls</div>
-          <div class="toggle-desc">Tilt phone to forehead — face down = Got It, face up = Pass</div>
-        </div>
-        <label class="toggle">
-          <input type="checkbox" id="tiltToggle" onchange="onTiltToggle()">
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
+      <div class="settings-group-label">Gameplay</div>
       <div class="toggle-wrap">
         <div class="toggle-info">
           <div class="toggle-title">📳 Haptic Feedback</div>
-          <div class="toggle-desc">Vibrate on correct / pass</div>
+          <div class="toggle-desc">Vibrate on Got It / Pass</div>
         </div>
         <label class="toggle">
           <input type="checkbox" id="hapticToggle" onchange="saveSettings()" checked>
@@ -568,14 +506,13 @@ body {
         </label>
       </div>
     </div>
-
     <div class="settings-group">
       <div class="settings-group-label">About</div>
       <div style="background:var(--surface);border-radius:14px;padding:16px;font-size:13px;color:var(--muted);line-height:1.8;">
         <strong style="color:var(--text);">Heads Up or Down: Charades</strong><br>
         A free, unlimited alternative to Heads Up!<br>
         No sign-up. No ads. No paid decks. Ever.<br><br>
-        <span style="color:var(--orange);">12 built-in decks &bull; Custom deck builder &bull; Team mode &bull; Works offline</span>
+        <span style="color:var(--orange);">12 built-in decks &bull; Custom deck builder &bull; Team mode &bull; Landscape tilt play &bull; Works offline</span>
       </div>
     </div>
   </div>
@@ -587,18 +524,18 @@ body {
 // DATA — 12 BUILT-IN DECKS
 // ============================================================
 const BUILT_IN_DECKS = {
-  movies:  { id:'movies',  name:'Movies',      emoji:'🎬', words:['Titanic','Inception','The Godfather','Jurassic Park','Avengers','Frozen','The Lion King','Shrek','Avatar','Forrest Gump','Harry Potter','Star Wars','The Matrix','Toy Story','Interstellar','Joker','Black Panther','Spider-Man','Moana','Finding Nemo','The Dark Knight','Gladiator','Mean Girls','Grease','Top Gun','Jaws','Rocky','ET','Pulp Fiction','The Notebook','Get Out','Parasite','Oppenheimer','Barbie','Everything Everywhere'] },
-  celebs:  { id:'celebs',  name:'Celebs',      emoji:'⭐', words:['Taylor Swift','Elon Musk','Beyonce','Dwayne Johnson','Oprah Winfrey','Kim Kardashian','LeBron James','Lady Gaga','Rihanna','Brad Pitt','Jennifer Aniston','Tom Cruise','Ariana Grande','Drake','Billie Eilish','Justin Bieber','Selena Gomez','Kevin Hart','Will Smith','Adele','Ed Sheeran','Cardi B','Zendaya','Ryan Reynolds','Margot Robbie','Chris Hemsworth','Bad Bunny','Shakira','Cristiano Ronaldo','Timothée Chalamet','Sabrina Carpenter','Chappell Roan'] },
-  animals: { id:'animals', name:'Animals',     emoji:'🦁', words:['Elephant','Penguin','Flamingo','Platypus','Giraffe','Kangaroo','Octopus','Chameleon','Porcupine','Narwhal','Sloth','Armadillo','Capybara','Meerkat','Quokka','Wolverine','Manatee','Wombat','Fennec Fox','Snow Leopard','Red Panda','Axolotl','Tapir','Pangolin','Blobfish','Komodo Dragon','Flying Squirrel','Peacock','Mantis Shrimp','Sun Bear','Okapi','Fossa'] },
-  actions: { id:'actions', name:'Act It Out',  emoji:'🎭', words:['Moonwalk','Hula Hoop','Jump Rope','Surfing','Playing Guitar','Conducting Orchestra','Tightrope Walking','Karate Chop','Yoga Pose','Synchronized Swimming','Bowling','Ice Skating','Rock Climbing','Disco Dancing','Typing Really Fast','Eating Spaghetti','Taking a Selfie','Playing Drums','Sneezing','Parallel Parking','Blow Drying Hair','Playing Tennis','Milking a Cow','Rowing a Boat','Folding Laundry','Texting While Walking','Going Through Airport Security','Putting on Sunscreen'] },
-  places:  { id:'places',  name:'Places',      emoji:'🌍', words:['Eiffel Tower','Grand Canyon','Great Wall of China','Taj Mahal','Niagara Falls','Times Square','Colosseum','Sydney Opera House','Machu Picchu','Sahara Desert','Amazon Rainforest','Mount Everest','Great Barrier Reef','Stonehenge','Pyramids of Giza','Yellowstone','Santorini','Maldives','Venice','New Orleans','Las Vegas','Hollywood','Antarctica','The Vatican','Bora Bora','Iceland','Tokyo','Rio de Janeiro','Dubai','Patagonia','Angkor Wat'] },
-  food:    { id:'food',    name:'Food',        emoji:'🍕', words:['Pizza','Sushi','Tacos','Ramen','Croissant','Guacamole','Cheeseburger','Pad Thai','Lobster','Fondue','Pho','Dim Sum','Paella','Tiramisu','Baklava','Boba Tea','Kimchi','Pretzels','S\'mores','Cotton Candy','Churros','Falafel','Nachos','Clam Chowder','Beignets','Poutine','Mochi','Tamales','Gyoza','Shakshuka','Birria','Smash Burger'] },
-  music:   { id:'music',   name:'Music',       emoji:'🎵', words:['Bohemian Rhapsody','Thriller','Shape of You','Blinding Lights','Rolling in the Deep','Smells Like Teen Spirit','Hotel California','Lose Yourself','Uptown Funk','Old Town Road','Despacito','Gangnam Style','Sweet Home Alabama','Wonderwall','Mr. Brightside','Africa by Toto','Seven Nation Army','Shake It Off','Thank U Next','Watermelon Sugar','Levitating','As It Was','Flowers','Anti-Hero','Unholy','Espresso','Vampire','APT.','Die With a Smile','Beautiful Things'] },
-  brands:  { id:'brands',  name:'Brands',      emoji:'🏷️', words:['Apple','Nike','McDonald\'s','Tesla','Google','Amazon','Netflix','Coca-Cola','Disney','Starbucks','Ferrari','IKEA','Adidas','Rolex','Louis Vuitton','SpaceX','Instagram','TikTok','Spotify','Uber','Airbnb','Snapchat','YouTube','Reddit','Twitch','Duolingo','Lego','Chanel','Gucci','Supreme','Stanley','Stanley Cup'] },
-  sports:  { id:'sports',  name:'Sports',      emoji:'🏆', words:['LeBron James','Cristiano Ronaldo','Serena Williams','Michael Jordan','Usain Bolt','Simone Biles','Tiger Woods','Muhammad Ali','Michael Phelps','Tom Brady','Lionel Messi','Roger Federer','Kobe Bryant','Wayne Gretzky','Babe Ruth','Rafael Nadal','Lewis Hamilton','Novak Djokovic','Stephen Curry','Caitlin Clark','Patrick Mahomes','Shohei Ohtani','Naomi Osaka','Sha\'Carri Richardson','Angel Reese'] },
-  tvshows: { id:'tvshows', name:'TV Shows',    emoji:'📺', words:['The Office','Breaking Bad','Friends','Game of Thrones','Stranger Things','The Crown','Squid Game','Ted Lasso','Euphoria','Grey\'s Anatomy','The Mandalorian','Succession','Bridgerton','The Bear','White Lotus','Abbott Elementary','Wednesday','Yellowstone','Peaky Blinders','The Last of Us','House of the Dragon','Severance','Seinfeld','The Sopranos','Lost','Schitt\'s Creek','Arrested Development','The Boys','Only Murders in the Building','Slow Horses'] },
-  kids:    { id:'kids',    name:'Kids Mode',   emoji:'🧒', words:['Dog','Cat','Elephant','Pizza','Ball','Sun','Moon','Fish','Bird','Car','Butterfly','Rainbow','Cookie','Ice Cream','Flower','Horse','Duck','Turtle','Frog','Monkey','Lion','Bear','Robot','Princess','Dragon','Castle','Superhero','Dinosaur','Unicorn','School Bus','Lunchbox','Playground'] },
-  history: { id:'history', name:'History',     emoji:'🏛️', words:['Abraham Lincoln','Cleopatra','Napoleon Bonaparte','World War II','The Moon Landing','Ancient Rome','Christopher Columbus','Joan of Arc','Albert Einstein','The French Revolution','Julius Caesar','Shakespeare','Mahatma Gandhi','The Pyramids','The Renaissance','Martin Luther King Jr','Genghis Khan','The Titanic','Marco Polo','The Cold War','Marie Curie','Viking Age','The Colosseum','The Berlin Wall','Nelson Mandela'] },
+  movies:  { id:'movies',  name:'Movies',     emoji:'🎬', words:['Titanic','Inception','The Godfather','Jurassic Park','Avengers','Frozen','The Lion King','Shrek','Avatar','Forrest Gump','Harry Potter','Star Wars','The Matrix','Toy Story','Interstellar','Joker','Black Panther','Spider-Man','Moana','Finding Nemo','The Dark Knight','Gladiator','Mean Girls','Grease','Top Gun','Jaws','Rocky','ET','Pulp Fiction','The Notebook','Get Out','Parasite','Oppenheimer','Barbie','Everything Everywhere'] },
+  celebs:  { id:'celebs',  name:'Celebs',     emoji:'⭐', words:['Taylor Swift','Elon Musk','Beyonce','Dwayne Johnson','Oprah Winfrey','Kim Kardashian','LeBron James','Lady Gaga','Rihanna','Brad Pitt','Jennifer Aniston','Tom Cruise','Ariana Grande','Drake','Billie Eilish','Justin Bieber','Selena Gomez','Kevin Hart','Will Smith','Adele','Ed Sheeran','Cardi B','Zendaya','Ryan Reynolds','Margot Robbie','Chris Hemsworth','Bad Bunny','Shakira','Cristiano Ronaldo','Timothée Chalamet','Sabrina Carpenter','Chappell Roan'] },
+  animals: { id:'animals', name:'Animals',    emoji:'🦁', words:['Elephant','Penguin','Flamingo','Platypus','Giraffe','Kangaroo','Octopus','Chameleon','Porcupine','Narwhal','Sloth','Armadillo','Capybara','Meerkat','Quokka','Wolverine','Manatee','Wombat','Fennec Fox','Snow Leopard','Red Panda','Axolotl','Tapir','Pangolin','Blobfish','Komodo Dragon','Flying Squirrel','Peacock','Mantis Shrimp','Sun Bear','Okapi','Fossa'] },
+  actions: { id:'actions', name:'Act It Out', emoji:'🎭', words:['Moonwalk','Hula Hoop','Jump Rope','Surfing','Playing Guitar','Conducting Orchestra','Tightrope Walking','Karate Chop','Yoga Pose','Synchronized Swimming','Bowling','Ice Skating','Rock Climbing','Disco Dancing','Typing Really Fast','Eating Spaghetti','Taking a Selfie','Playing Drums','Sneezing','Parallel Parking','Blow Drying Hair','Playing Tennis','Milking a Cow','Rowing a Boat','Folding Laundry','Texting While Walking','Going Through Airport Security','Putting on Sunscreen'] },
+  places:  { id:'places',  name:'Places',     emoji:'🌍', words:['Eiffel Tower','Grand Canyon','Great Wall of China','Taj Mahal','Niagara Falls','Times Square','Colosseum','Sydney Opera House','Machu Picchu','Sahara Desert','Amazon Rainforest','Mount Everest','Great Barrier Reef','Stonehenge','Pyramids of Giza','Yellowstone','Santorini','Maldives','Venice','New Orleans','Las Vegas','Hollywood','Antarctica','The Vatican','Bora Bora','Iceland','Tokyo','Rio de Janeiro','Dubai','Patagonia','Angkor Wat'] },
+  food:    { id:'food',    name:'Food',       emoji:'🍕', words:['Pizza','Sushi','Tacos','Ramen','Croissant','Guacamole','Cheeseburger','Pad Thai','Lobster','Fondue','Pho','Dim Sum','Paella','Tiramisu','Baklava','Boba Tea','Kimchi','Pretzels','S\'mores','Cotton Candy','Churros','Falafel','Nachos','Clam Chowder','Beignets','Poutine','Mochi','Tamales','Gyoza','Shakshuka','Birria','Smash Burger'] },
+  music:   { id:'music',   name:'Music',      emoji:'🎵', words:['Bohemian Rhapsody','Thriller','Shape of You','Blinding Lights','Rolling in the Deep','Smells Like Teen Spirit','Hotel California','Lose Yourself','Uptown Funk','Old Town Road','Despacito','Gangnam Style','Sweet Home Alabama','Wonderwall','Mr. Brightside','Africa by Toto','Seven Nation Army','Shake It Off','Thank U Next','Watermelon Sugar','Levitating','As It Was','Flowers','Anti-Hero','Unholy','Espresso','Vampire','APT.','Die With a Smile','Beautiful Things'] },
+  brands:  { id:'brands',  name:'Brands',     emoji:'🏷️', words:['Apple','Nike','McDonald\'s','Tesla','Google','Amazon','Netflix','Coca-Cola','Disney','Starbucks','Ferrari','IKEA','Adidas','Rolex','Louis Vuitton','SpaceX','Instagram','TikTok','Spotify','Uber','Airbnb','Snapchat','YouTube','Reddit','Twitch','Duolingo','Lego','Chanel','Gucci','Supreme','Stanley','Birkenstock'] },
+  sports:  { id:'sports',  name:'Sports',     emoji:'🏆', words:['LeBron James','Cristiano Ronaldo','Serena Williams','Michael Jordan','Usain Bolt','Simone Biles','Tiger Woods','Muhammad Ali','Michael Phelps','Tom Brady','Lionel Messi','Roger Federer','Kobe Bryant','Wayne Gretzky','Babe Ruth','Rafael Nadal','Lewis Hamilton','Novak Djokovic','Stephen Curry','Caitlin Clark','Patrick Mahomes','Shohei Ohtani','Naomi Osaka','Sha\'Carri Richardson','Angel Reese'] },
+  tvshows: { id:'tvshows', name:'TV Shows',   emoji:'📺', words:['The Office','Breaking Bad','Friends','Game of Thrones','Stranger Things','The Crown','Squid Game','Ted Lasso','Euphoria','Grey\'s Anatomy','The Mandalorian','Succession','Bridgerton','The Bear','White Lotus','Abbott Elementary','Wednesday','Yellowstone','Peaky Blinders','The Last of Us','House of the Dragon','Severance','Seinfeld','The Sopranos','Lost','Schitt\'s Creek','Arrested Development','The Boys','Only Murders in the Building','Slow Horses'] },
+  kids:    { id:'kids',    name:'Kids Mode',  emoji:'🧒', words:['Dog','Cat','Elephant','Pizza','Ball','Sun','Moon','Fish','Bird','Car','Butterfly','Rainbow','Cookie','Ice Cream','Flower','Horse','Duck','Turtle','Frog','Monkey','Lion','Bear','Robot','Princess','Dragon','Castle','Superhero','Dinosaur','Unicorn','School Bus','Lunchbox','Playground'] },
+  history: { id:'history', name:'History',    emoji:'🏛️', words:['Abraham Lincoln','Cleopatra','Napoleon Bonaparte','World War II','The Moon Landing','Ancient Rome','Christopher Columbus','Joan of Arc','Albert Einstein','The French Revolution','Julius Caesar','Shakespeare','Mahatma Gandhi','The Pyramids','The Renaissance','Martin Luther King Jr','Genghis Khan','The Titanic','Marco Polo','The Cold War','Marie Curie','Viking Age','The Colosseum','The Berlin Wall','Nelson Mandela'] },
 };
 
 const DECK_EMOJIS = ['🎯','🔥','💀','🌈','👽','🦄','🎪','🍄','⚡','🎲','🏴','💎','🐉','🦊','🌙','🎸','🚀','🎭'];
@@ -607,20 +544,110 @@ const DECK_EMOJIS = ['🎯','🔥','💀','🌈','👽','🦄','🎪','🍄','�
 // STATE
 // ============================================================
 let S = {
-  selDeck: null,
-  roundTime: 60,
-  gameMode: 'solo',
-  // game
-  queue: [], results: [], correct: 0, passed: 0, timeLeft: 0, timer: null,
-  // teams
-  teamCount: 2, teamRounds: 2,
-  teams: [], teamScores: [],
-  currentTeamIdx: 0, currentRoundNum: 1, totalRoundsPlayed: 0,
-  // custom deck builder
-  editingDeckId: null, builderWords: [], selectedEmoji: '🎯',
-  // settings
-  tiltEnabled: false, hapticEnabled: true, tiltPermission: false,
+  selDeck:null, roundTime:60, gameMode:'solo',
+  queue:[], results:[], correct:0, passed:0, timeLeft:0, timer:null,
+  teamCount:2, teamRounds:2,
+  teams:[], teamScores:[], currentTeamIdx:0, currentRoundNum:1, totalRoundsPlayed:0,
+  editingDeckId:null, builderWords:[], selectedEmoji:'🎯',
+  hapticEnabled:true,
+  tiltPermission:false,  // has the user granted iOS permission yet?
 };
+
+// ============================================================
+// TILT — calibrated, always-on
+// ============================================================
+let tiltActive   = false;
+let betaBaseline = null;
+let lastTiltTime = 0;
+const TILT_THRESHOLD = 30;   // degrees from baseline
+const TILT_COOLDOWN  = 1300; // ms between triggers
+
+function handleOrientation(e) {
+  if (!tiltActive || e.beta === null) return;
+
+  // Calibrate on first reading after game start
+  if (betaBaseline === null) { betaBaseline = e.beta; return; }
+
+  const now   = Date.now();
+  if (now - lastTiltTime < TILT_COOLDOWN) return;
+
+  const delta = e.beta - betaBaseline;
+
+  if (delta < -TILT_THRESHOLD) {      // face tilts DOWN → Got It
+    lastTiltTime = now;
+    handleCorrect();
+  } else if (delta > TILT_THRESHOLD) { // face tilts UP → Pass
+    lastTiltTime = now;
+    handlePass();
+  }
+}
+window.addEventListener('deviceorientation', handleOrientation);
+
+async function requestTiltPermission() {
+  // iOS 13+ requires an explicit permission call from a user gesture
+  if (typeof DeviceOrientationEvent !== 'undefined' &&
+      typeof DeviceOrientationEvent.requestPermission === 'function') {
+    try {
+      const res = await DeviceOrientationEvent.requestPermission();
+      S.tiltPermission = res === 'granted';
+    } catch (e) {
+      S.tiltPermission = false;
+    }
+  } else {
+    S.tiltPermission = true; // Android / desktop: no prompt needed
+  }
+}
+
+function startTilt() {
+  betaBaseline = null;  // will calibrate on first reading
+  tiltActive   = true;
+}
+
+function stopTilt() {
+  tiltActive   = false;
+  betaBaseline = null;
+}
+
+// ============================================================
+// GAME MODE — fullscreen + landscape
+// ============================================================
+let usingCssLandscape = false;
+
+async function enterGameMode() {
+  // 1. Try fullscreen
+  try { await document.documentElement.requestFullscreen({ navigationUI:'hide' }); } catch (_) {}
+
+  // 2. Try native orientation lock (works on Android in fullscreen)
+  let locked = false;
+  if (screen.orientation && screen.orientation.lock) {
+    try { await screen.orientation.lock('landscape'); locked = true; } catch (_) {}
+  }
+
+  // 3. If no native lock (iOS), apply CSS rotation to play screen
+  const ps = document.getElementById('play-screen');
+  if (!locked && window.innerHeight > window.innerWidth) {
+    ps.classList.add('landscape-mode');
+    usingCssLandscape = true;
+  } else {
+    usingCssLandscape = false;
+  }
+}
+
+async function exitGameMode() {
+  // Remove CSS landscape
+  document.getElementById('play-screen').classList.remove('landscape-mode');
+  usingCssLandscape = false;
+
+  // Unlock orientation
+  if (screen.orientation && screen.orientation.unlock) {
+    try { screen.orientation.unlock(); } catch (_) {}
+  }
+
+  // Exit fullscreen
+  if (document.fullscreenElement) {
+    try { await document.exitFullscreen(); } catch (_) {}
+  }
+}
 
 // ============================================================
 // LOCAL STORAGE
@@ -628,22 +655,17 @@ let S = {
 function loadCustomDecks() {
   try { return JSON.parse(localStorage.getItem('customDecks') || '[]'); } catch { return []; }
 }
-function saveCustomDecks(decks) {
-  localStorage.setItem('customDecks', JSON.stringify(decks));
-}
+function saveCustomDecks(d) { localStorage.setItem('customDecks', JSON.stringify(d)); }
 function loadSettings() {
   try {
     const s = JSON.parse(localStorage.getItem('appSettings') || '{}');
-    S.tiltEnabled = s.tiltEnabled || false;
     S.hapticEnabled = s.hapticEnabled !== false;
   } catch {}
-  document.getElementById('tiltToggle').checked = S.tiltEnabled;
   document.getElementById('hapticToggle').checked = S.hapticEnabled;
 }
 function saveSettings() {
-  S.tiltEnabled = document.getElementById('tiltToggle').checked;
   S.hapticEnabled = document.getElementById('hapticToggle').checked;
-  localStorage.setItem('appSettings', JSON.stringify({ tiltEnabled: S.tiltEnabled, hapticEnabled: S.hapticEnabled }));
+  localStorage.setItem('appSettings', JSON.stringify({ hapticEnabled: S.hapticEnabled }));
 }
 
 // ============================================================
@@ -660,29 +682,21 @@ function showScreen(id) {
 function buildDeckGrid() {
   const grid = document.getElementById('deckGrid');
   grid.innerHTML = '';
-
-  // Built-in decks
   Object.values(BUILT_IN_DECKS).forEach(d => {
     const b = document.createElement('button');
-    b.className = 'deck-btn';
-    b.dataset.id = d.id;
+    b.className = 'deck-btn'; b.dataset.id = d.id;
     b.innerHTML = `<span class="de">${d.emoji}</span><div class="dn">${d.name}</div><div class="dc">${d.words.length} cards</div>`;
     b.onclick = () => selectDeck(d.id, b);
     grid.appendChild(b);
   });
-
-  // Custom decks
   loadCustomDecks().forEach(d => {
     const b = document.createElement('button');
-    b.className = 'deck-btn custom-card';
-    b.dataset.id = d.id;
+    b.className = 'deck-btn custom-card'; b.dataset.id = d.id;
     b.innerHTML = `<span class="de">${d.emoji}</span><div class="dn">${d.name}</div><div class="dc">${d.words.length} cards ✏️</div>`;
-    b.onclick = () => selectDeck(d.id, b);
+    b.onclick  = () => selectDeck(d.id, b);
     b.ondblclick = () => openDeckBuilder(d.id);
     grid.appendChild(b);
   });
-
-  // Add deck button
   const add = document.createElement('button');
   add.className = 'add-deck-btn';
   add.innerHTML = `<span class="de">➕</span><div class="dn">My Deck</div>`;
@@ -692,38 +706,34 @@ function buildDeckGrid() {
 
 function selectDeck(id, btn) {
   document.querySelectorAll('.deck-btn').forEach(b => b.classList.remove('sel'));
-  btn.classList.add('sel');
-  S.selDeck = id;
-  const name = getDeckById(id).name;
+  btn.classList.add('sel'); S.selDeck = id;
   const goBtn = document.getElementById('goBtn');
   goBtn.disabled = false;
-  goBtn.textContent = '▶ Play ' + name;
+  goBtn.textContent = '▶ Play ' + getDeckById(id).name;
 }
 
 function getDeckById(id) {
-  if (BUILT_IN_DECKS[id]) return BUILT_IN_DECKS[id];
-  return loadCustomDecks().find(d => d.id === id) || null;
+  return BUILT_IN_DECKS[id] || loadCustomDecks().find(d => d.id === id) || null;
 }
 
 function selTime(el) {
   document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('sel'));
-  el.classList.add('sel');
-  S.roundTime = +el.dataset.t;
+  el.classList.add('sel'); S.roundTime = +el.dataset.t;
 }
 
 function selMode(el) {
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('sel'));
-  el.classList.add('sel');
-  S.gameMode = el.dataset.mode;
+  el.classList.add('sel'); S.gameMode = el.dataset.mode;
 }
 
-function handleGo() {
+async function handleGo() {
   if (!S.selDeck) return;
   const deck = getDeckById(S.selDeck);
-  if (!deck || deck.words.length < 3) {
-    alert('Add at least 3 words to this deck before playing!');
-    return;
-  }
+  if (!deck || deck.words.length < 3) { alert('Add at least 3 words to this deck before playing!'); return; }
+
+  // Request tilt permission once (iOS needs this from a user gesture)
+  if (!S.tiltPermission) await requestTiltPermission();
+
   if (S.gameMode === 'teams') {
     buildTeamSetup();
     showScreen('team-setup-screen');
@@ -736,65 +746,44 @@ function handleGo() {
 // DECK BUILDER
 // ============================================================
 function openDeckBuilder(deckId) {
-  S.editingDeckId = deckId;
-  S.builderWords = [];
-  S.selectedEmoji = '🎯';
-
+  S.editingDeckId = deckId; S.builderWords = []; S.selectedEmoji = '🎯';
   const title = document.getElementById('builderTitle');
   const nameInput = document.getElementById('deckNameInput');
   const deleteWrap = document.getElementById('builderDeleteWrap');
-
   if (deckId) {
     const deck = getDeckById(deckId);
-    title.textContent = 'Edit Deck';
-    nameInput.value = deck.name;
-    S.builderWords = [...deck.words];
-    S.selectedEmoji = deck.emoji;
+    title.textContent = 'Edit Deck'; nameInput.value = deck.name;
+    S.builderWords = [...deck.words]; S.selectedEmoji = deck.emoji;
     deleteWrap.style.display = 'block';
   } else {
-    title.textContent = 'Create Deck';
-    nameInput.value = '';
+    title.textContent = 'Create Deck'; nameInput.value = '';
     deleteWrap.style.display = 'none';
   }
-
-  renderEmojiRow();
-  renderWordList();
+  renderEmojiRow(); renderWordList();
   showScreen('deck-builder-screen');
 }
 
 function renderEmojiRow() {
-  const row = document.getElementById('emojiRow');
-  const allEmojis = [S.selectedEmoji, ...DECK_EMOJIS.filter(e => e !== S.selectedEmoji)].slice(0, 18);
-  row.innerHTML = allEmojis.map(e =>
-    `<button class="emoji-opt ${e === S.selectedEmoji ? 'sel' : ''}" onclick="pickEmoji('${e}')">${e}</button>`
+  const all = [S.selectedEmoji, ...DECK_EMOJIS.filter(e => e !== S.selectedEmoji)].slice(0,18);
+  document.getElementById('emojiRow').innerHTML = all.map(e =>
+    `<button class="emoji-opt ${e===S.selectedEmoji?'sel':''}" onclick="pickEmoji('${e}')">${e}</button>`
   ).join('');
 }
 
-function pickEmoji(e) {
-  S.selectedEmoji = e;
-  renderEmojiRow();
-}
+function pickEmoji(e) { S.selectedEmoji = e; renderEmojiRow(); }
 
 function addWord() {
   const input = document.getElementById('wordInput');
   const w = input.value.trim();
-  if (!w) return;
-  if (S.builderWords.includes(w)) { input.value = ''; return; }
-  S.builderWords.push(w);
-  input.value = '';
-  renderWordList();
-  input.focus();
+  if (!w || S.builderWords.includes(w)) { input.value=''; return; }
+  S.builderWords.push(w); input.value = ''; renderWordList(); input.focus();
 }
 
-function removeWord(idx) {
-  S.builderWords.splice(idx, 1);
-  renderWordList();
-}
+function removeWord(i) { S.builderWords.splice(i,1); renderWordList(); }
 
 function renderWordList() {
-  const list = document.getElementById('wordList');
   document.getElementById('wordCountLabel').textContent = `Words (${S.builderWords.length})`;
-  list.innerHTML = S.builderWords.map((w, i) =>
+  document.getElementById('wordList').innerHTML = S.builderWords.map((w,i) =>
     `<div class="word-item"><span>${w}</span><button class="word-remove" onclick="removeWord(${i})">×</button></div>`
   ).join('');
 }
@@ -803,165 +792,86 @@ function saveDeck() {
   const name = document.getElementById('deckNameInput').value.trim();
   if (!name) { alert('Give your deck a name!'); return; }
   if (S.builderWords.length < 3) { alert('Add at least 3 words to play!'); return; }
-
   const decks = loadCustomDecks();
   if (S.editingDeckId) {
-    // Check if it's a custom deck (not built-in)
     const idx = decks.findIndex(d => d.id === S.editingDeckId);
-    if (idx >= 0) {
-      decks[idx] = { id: S.editingDeckId, name, emoji: S.selectedEmoji, words: S.builderWords };
-    }
+    if (idx >= 0) decks[idx] = { id:S.editingDeckId, name, emoji:S.selectedEmoji, words:S.builderWords };
   } else {
-    const id = 'custom_' + Date.now();
-    decks.push({ id, name, emoji: S.selectedEmoji, words: S.builderWords });
+    decks.push({ id:'custom_'+Date.now(), name, emoji:S.selectedEmoji, words:S.builderWords });
   }
-  saveCustomDecks(decks);
-  buildDeckGrid();
-  showScreen('home-screen');
+  saveCustomDecks(decks); buildDeckGrid(); showScreen('home-screen');
 }
 
 function deleteDeck() {
   if (!confirm('Delete this deck?')) return;
-  const decks = loadCustomDecks().filter(d => d.id !== S.editingDeckId);
-  saveCustomDecks(decks);
+  saveCustomDecks(loadCustomDecks().filter(d => d.id !== S.editingDeckId));
   if (S.selDeck === S.editingDeckId) {
     S.selDeck = null;
-    const goBtn = document.getElementById('goBtn');
-    goBtn.disabled = true;
-    goBtn.textContent = 'Choose a deck first';
+    const g = document.getElementById('goBtn'); g.disabled=true; g.textContent='Choose a deck first';
   }
-  buildDeckGrid();
-  showScreen('home-screen');
+  buildDeckGrid(); showScreen('home-screen');
 }
 
 // ============================================================
 // TEAM SETUP
 // ============================================================
 function buildTeamSetup() {
-  S.teamCount = 2;
-  S.teamRounds = 2;
-  updateTeamSetupUI();
+  S.teamCount=2; S.teamRounds=2; updateTeamSetupUI();
 }
 
 function updateTeamSetupUI() {
   document.getElementById('teamCountVal').textContent = S.teamCount;
-  document.getElementById('teamCountMinus').disabled = S.teamCount <= 2;
-  document.getElementById('teamCountPlus').disabled = S.teamCount >= 4;
+  document.getElementById('teamCountMinus').disabled = S.teamCount<=2;
+  document.getElementById('teamCountPlus').disabled  = S.teamCount>=4;
   document.getElementById('roundCountVal').textContent = S.teamRounds;
-  document.getElementById('roundCountMinus').disabled = S.teamRounds <= 1;
-  document.getElementById('roundCountPlus').disabled = S.teamRounds >= 5;
-
+  document.getElementById('roundCountMinus').disabled = S.teamRounds<=1;
+  document.getElementById('roundCountPlus').disabled  = S.teamRounds>=5;
   const list = document.getElementById('teamNameList');
-  const existing = list.querySelectorAll('input');
-  const names = Array.from(existing).map(i => i.value);
+  const existing = Array.from(list.querySelectorAll('input')).map(i => i.value);
   list.innerHTML = '';
-  for (let i = 0; i < S.teamCount; i++) {
-    const val = names[i] || `Team ${i + 1}`;
-    list.innerHTML += `<input class="input-field" placeholder="Team ${i + 1} name" value="${val}">`;
+  for (let i=0; i<S.teamCount; i++) {
+    const val = existing[i] || `Team ${i+1}`;
+    list.innerHTML += `<input class="input-field" placeholder="Team ${i+1} name" value="${val}">`;
   }
 }
 
-function changeTeamCount(delta) {
-  S.teamCount = Math.min(4, Math.max(2, S.teamCount + delta));
-  updateTeamSetupUI();
-}
-
-function changeRoundCount(delta) {
-  S.teamRounds = Math.min(5, Math.max(1, S.teamRounds + delta));
-  updateTeamSetupUI();
-}
+function changeTeamCount(d) { S.teamCount=Math.min(4,Math.max(2,S.teamCount+d)); updateTeamSetupUI(); }
+function changeRoundCount(d) { S.teamRounds=Math.min(5,Math.max(1,S.teamRounds+d)); updateTeamSetupUI(); }
 
 function startTeamGame() {
   const inputs = document.querySelectorAll('#teamNameList input');
-  S.teams = Array.from(inputs).map((inp, i) => inp.value.trim() || `Team ${i + 1}`);
+  S.teams = Array.from(inputs).map((inp,i) => inp.value.trim() || `Team ${i+1}`);
   S.teamScores = S.teams.map(() => 0);
-  S.currentTeamIdx = 0;
-  S.currentRoundNum = 1;
-  S.totalRoundsPlayed = 0;
+  S.currentTeamIdx=0; S.currentRoundNum=1; S.totalRoundsPlayed=0;
   showTeamTurnScreen();
 }
 
 function showTeamTurnScreen() {
-  const team = S.teams[S.currentTeamIdx];
-  const roundNum = Math.floor(S.totalRoundsPlayed / S.teams.length) + 1;
+  const roundNum = Math.floor(S.totalRoundsPlayed/S.teams.length)+1;
   document.getElementById('ttRoundLabel').textContent = `Round ${roundNum} of ${S.teamRounds}`;
-  document.getElementById('ttTeamName').textContent = team;
-  renderTTScores();
-  showScreen('team-turn-screen');
+  document.getElementById('ttTeamName').textContent = S.teams[S.currentTeamIdx];
+  renderTTScores(); showScreen('team-turn-screen');
 }
 
 function renderTTScores() {
   const wrap = document.getElementById('ttScores');
-  if (S.totalRoundsPlayed === 0) { wrap.innerHTML = ''; return; }
-  wrap.innerHTML = S.teams.map((t, i) =>
+  if (S.totalRoundsPlayed===0) { wrap.innerHTML=''; return; }
+  wrap.innerHTML = S.teams.map((t,i) =>
     `<div class="tt-score-row"><div class="tt-score-name">${t}</div><div class="tt-score-val">${S.teamScores[i]}</div></div>`
   ).join('');
 }
-
-// ============================================================
-// TILT CONTROLS
-// ============================================================
-let tiltActive = false;
-let lastTiltTime = 0;
-
-async function onTiltToggle() {
-  const on = document.getElementById('tiltToggle').checked;
-  if (on && typeof DeviceOrientationEvent !== 'undefined' &&
-      typeof DeviceOrientationEvent.requestPermission === 'function') {
-    try {
-      const res = await DeviceOrientationEvent.requestPermission();
-      if (res !== 'granted') {
-        document.getElementById('tiltToggle').checked = false;
-        alert('Tilt permission denied. You can enable it in your browser settings.');
-        return;
-      }
-      S.tiltPermission = true;
-    } catch (e) {
-      document.getElementById('tiltToggle').checked = false;
-    }
-  } else {
-    S.tiltPermission = true;
-  }
-  saveSettings();
-}
-
-function startTilt() {
-  if (!S.tiltEnabled) return;
-  tiltActive = true;
-  document.getElementById('tiltPlayHint').style.display = 'block';
-  document.getElementById('cdTiltHint').style.display = 'block';
-}
-
-function stopTilt() {
-  tiltActive = false;
-  document.getElementById('tiltPlayHint').style.display = 'none';
-  document.getElementById('cdTiltHint').style.display = 'none';
-}
-
-window.addEventListener('deviceorientation', e => {
-  if (!tiltActive) return;
-  const now = Date.now();
-  if (now - lastTiltTime < 1400) return;
-  const beta = e.beta;
-  if (beta === null) return;
-  if (beta < -30) { lastTiltTime = now; handleCorrect(); }
-  else if (beta > 55) { lastTiltTime = now; handlePass(); }
-});
 
 // ============================================================
 // COUNTDOWN
 // ============================================================
 function startCountdown() {
   showScreen('cd-screen');
-  let n = 3;
+  let n=3;
   const el = document.getElementById('cdNum');
   el.textContent = n;
-  if (S.tiltEnabled) {
-    document.getElementById('cdTiltHint').style.display = 'block';
-  }
   const iv = setInterval(() => {
     n--;
-    if (n <= 0) { clearInterval(iv); startGame(); }
+    if (n<=0) { clearInterval(iv); startGame(); }
     else el.textContent = n;
   }, 900);
 }
@@ -970,190 +880,140 @@ function startCountdown() {
 // GAME LOGIC
 // ============================================================
 function shuffle(a) {
-  const arr = [...a];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
+  const arr=[...a];
+  for (let i=arr.length-1; i>0; i--) { const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
   return arr;
 }
 
-function startGame() {
+async function startGame() {
   const deck = getDeckById(S.selDeck);
-  S.queue = shuffle(deck.words);
-  S.results = [];
-  S.correct = 0;
-  S.passed = 0;
-  S.timeLeft = S.roundTime;
+  S.queue=[...shuffle(deck.words)]; S.results=[]; S.correct=0; S.passed=0; S.timeLeft=S.roundTime;
 
-  document.getElementById('sC').textContent = '0';
-  document.getElementById('sP').textContent = '0';
-  document.getElementById('sT').textContent = S.roundTime;
-  document.getElementById('tFill').style.width = '100%';
+  document.getElementById('sC').textContent='0';
+  document.getElementById('sP').textContent='0';
+  document.getElementById('sT').textContent=S.roundTime;
+  document.getElementById('tFill').style.width='100%';
   document.getElementById('tFill').classList.remove('warn');
-  document.getElementById('playDeckName').textContent = deck.name;
-  document.getElementById('playTeamName').textContent =
-    S.gameMode === 'teams' ? S.teams[S.currentTeamIdx] : '';
+  document.getElementById('playDeckName').textContent=deck.name;
+  document.getElementById('playTeamName').textContent = S.gameMode==='teams' ? S.teams[S.currentTeamIdx] : '';
 
+  await enterGameMode();
   showScreen('play-screen');
-  if (S.tiltEnabled) startTilt();
+  startTilt();
   nextCard();
 
   clearInterval(S.timer);
   S.timer = setInterval(() => {
     S.timeLeft--;
-    document.getElementById('sT').textContent = S.timeLeft;
-    const pct = (S.timeLeft / S.roundTime) * 100;
-    document.getElementById('tFill').style.width = pct + '%';
-    if (pct <= 25) document.getElementById('tFill').classList.add('warn');
-    if (S.timeLeft <= 0) endGame();
+    document.getElementById('sT').textContent=S.timeLeft;
+    const pct=(S.timeLeft/S.roundTime)*100;
+    document.getElementById('tFill').style.width=pct+'%';
+    if (pct<=25) document.getElementById('tFill').classList.add('warn');
+    if (S.timeLeft<=0) endGame();
   }, 1000);
 }
 
 function nextCard() {
   if (!S.queue.length) { endGame(); return; }
-  const w = S.queue.shift();
-  document.getElementById('pcWord').textContent = w;
-  const c = document.getElementById('playCard');
-  c.style.transform = 'scale(0.95)'; c.style.opacity = '0.7';
-  setTimeout(() => { c.style.transform = ''; c.style.opacity = ''; }, 130);
+  const w=S.queue.shift();
+  document.getElementById('pcWord').textContent=w;
+  const c=document.getElementById('playCard');
+  c.style.transform='scale(0.95)'; c.style.opacity='0.7';
+  setTimeout(() => { c.style.transform=''; c.style.opacity=''; }, 130);
 }
 
 function doFlash(cls) {
-  const f = document.getElementById('flash');
-  f.className = 'flash on ' + cls;
-  setTimeout(() => f.className = 'flash', 200);
+  const f=document.getElementById('flash');
+  f.className='flash on '+cls;
+  setTimeout(() => f.className='flash', 220);
 }
 
-function vibrate(pattern) {
-  if (S.hapticEnabled && navigator.vibrate) navigator.vibrate(pattern);
+function vibrate(p) {
+  if (S.hapticEnabled && navigator.vibrate) navigator.vibrate(p);
 }
 
 function handleCorrect() {
-  S.results.push({ word: document.getElementById('pcWord').textContent, s: 'correct' });
-  S.correct++;
-  document.getElementById('sC').textContent = S.correct;
-  doFlash('fc');
-  vibrate(40);
-  nextCard();
+  S.results.push({ word:document.getElementById('pcWord').textContent, s:'correct' });
+  S.correct++; document.getElementById('sC').textContent=S.correct;
+  doFlash('fc'); vibrate(50); nextCard();
 }
 
 function handlePass() {
-  S.results.push({ word: document.getElementById('pcWord').textContent, s: 'pass' });
-  S.passed++;
-  document.getElementById('sP').textContent = S.passed;
-  doFlash('fp');
-  vibrate([30, 20, 30]);
-  nextCard();
+  S.results.push({ word:document.getElementById('pcWord').textContent, s:'pass' });
+  S.passed++; document.getElementById('sP').textContent=S.passed;
+  doFlash('fp'); vibrate([30,20,30]); nextCard();
 }
 
 function endGame() {
-  clearInterval(S.timer);
-  stopTilt();
-
-  if (S.gameMode === 'teams') {
-    S.teamScores[S.currentTeamIdx] += S.correct;
-  }
-
-  showRoundResults();
+  clearInterval(S.timer); stopTilt();
+  if (S.gameMode==='teams') S.teamScores[S.currentTeamIdx]+=S.correct;
+  exitGameMode().then(() => showRoundResults());
 }
 
 // ============================================================
-// ROUND RESULTS SCREEN
+// ROUND RESULTS
 // ============================================================
 function showRoundResults() {
-  const isTeams = S.gameMode === 'teams';
-  const teamName = isTeams ? S.teams[S.currentTeamIdx] : null;
-
-  document.getElementById('rrTitle').textContent = isTeams ? `${teamName}` : 'Round Over!';
+  const isTeams=S.gameMode==='teams';
+  document.getElementById('rrTitle').textContent = isTeams ? S.teams[S.currentTeamIdx] : 'Round Over!';
   document.getElementById('rrScore').textContent = S.correct;
-  document.getElementById('rrMeta').textContent = `correct out of ${S.results.length} cards`;
-
-  const list = document.getElementById('rrList');
-  list.innerHTML = S.results.map(r =>
-    `<div class="ri ${r.s === 'correct' ? 'rc' : 'rp'}">
-      <div class="ri-dot"></div>
-      <div class="ri-word">${r.word}</div>
-      <div class="ri-badge">${r.s === 'correct' ? '✓ Got it' : '✕ Pass'}</div>
+  document.getElementById('rrMeta').textContent  = `correct out of ${S.results.length} cards`;
+  document.getElementById('rrList').innerHTML = S.results.map(r =>
+    `<div class="ri ${r.s==='correct'?'rc':'rp'}">
+      <div class="ri-dot"></div><div class="ri-word">${r.word}</div>
+      <div class="ri-badge">${r.s==='correct'?'✓ Got it':'✕ Pass'}</div>
     </div>`
   ).join('');
-
-  const btns = document.getElementById('rrBtns');
-
+  const btns=document.getElementById('rrBtns');
   if (isTeams) {
     S.totalRoundsPlayed++;
-    const isLastInRound = S.currentTeamIdx === S.teams.length - 1;
-    const roundsComplete = Math.floor(S.totalRoundsPlayed / S.teams.length);
-    const isGameOver = isLastInRound && roundsComplete >= S.teamRounds;
-
+    const isLastInRound = S.currentTeamIdx===S.teams.length-1;
+    const roundsDone = Math.floor(S.totalRoundsPlayed/S.teams.length);
+    const isGameOver = isLastInRound && roundsDone>=S.teamRounds;
     if (isGameOver) {
-      btns.innerHTML = `
-        <button class="btn-primary" onclick="showTeamScores()">🏆 See Final Results</button>
-        <button class="btn-secondary" onclick="goHome()">Change Deck</button>
-      `;
+      btns.innerHTML=`<button class="btn-primary" onclick="showTeamScores()">🏆 See Final Results</button>
+                      <button class="btn-secondary" onclick="goHome()">Change Deck</button>`;
     } else {
-      const nextIdx = (S.currentTeamIdx + 1) % S.teams.length;
-      const nextName = S.teams[nextIdx];
-      btns.innerHTML = `
-        <button class="btn-primary" onclick="nextTeamTurn()">Pass to ${nextName} →</button>
-        <button class="btn-secondary" onclick="showTeamScores()">📊 See Scores</button>
-      `;
+      const nextIdx=(S.currentTeamIdx+1)%S.teams.length;
+      btns.innerHTML=`<button class="btn-primary" onclick="nextTeamTurn()">Pass to ${S.teams[nextIdx]} →</button>
+                      <button class="btn-secondary" onclick="showTeamScores()">📊 See Scores</button>`;
     }
   } else {
-    btns.innerHTML = `
-      <button class="btn-primary" onclick="startCountdown()">▶ Play Again</button>
-      <button class="btn-secondary" onclick="goHome()">Change Deck</button>
-    `;
+    btns.innerHTML=`<button class="btn-primary" onclick="startCountdown()">▶ Play Again</button>
+                    <button class="btn-secondary" onclick="goHome()">Change Deck</button>`;
   }
-
   showScreen('round-results-screen');
 }
 
 function nextTeamTurn() {
-  S.currentTeamIdx = (S.currentTeamIdx + 1) % S.teams.length;
+  S.currentTeamIdx=(S.currentTeamIdx+1)%S.teams.length;
   showTeamTurnScreen();
 }
 
 // ============================================================
-// TEAM SCORES SCREEN
+// TEAM SCORES
 // ============================================================
 function showTeamScores() {
-  const roundsComplete = Math.floor(S.totalRoundsPlayed / S.teams.length);
-  document.getElementById('tsSubtitle').textContent =
-    `After ${roundsComplete} round${roundsComplete !== 1 ? 's' : ''}`;
-
-  const sorted = S.teams
-    .map((name, i) => ({ name, score: S.teamScores[i], origIdx: i }))
-    .sort((a, b) => b.score - a.score);
-
-  document.getElementById('leaderboard').innerHTML = sorted.map((t, rank) =>
-    `<div class="lb-row ${rank === 0 ? 'first' : ''}">
-      <div class="lb-rank">${rank + 1}</div>
+  const roundsDone=Math.floor(S.totalRoundsPlayed/S.teams.length);
+  document.getElementById('tsSubtitle').textContent=`After ${roundsDone} round${roundsDone!==1?'s':''}`;
+  const sorted=S.teams.map((name,i)=>({name,score:S.teamScores[i]})).sort((a,b)=>b.score-a.score);
+  document.getElementById('leaderboard').innerHTML=sorted.map((t,rank)=>
+    `<div class="lb-row ${rank===0?'first':''}">
+      <div class="lb-rank">${rank+1}</div>
       <div class="lb-name">${t.name}</div>
       <div class="lb-score">${t.score}</div>
-      ${rank === 0 ? '<div class="lb-crown">👑</div>' : ''}
+      ${rank===0?'<div class="lb-crown">👑</div>':''}
     </div>`
   ).join('');
-
-  const roundsComplete2 = Math.floor(S.totalRoundsPlayed / S.teams.length);
-  const remaining = S.teamRounds - roundsComplete2;
-  document.getElementById('tsPlayAgainBtn').textContent =
-    remaining > 0 ? `▶ Continue (${remaining} round${remaining !== 1 ? 's' : ''} left)` : '▶ Play Again';
-
+  const rem=S.teamRounds-Math.floor(S.totalRoundsPlayed/S.teams.length);
+  document.getElementById('tsPlayAgainBtn').textContent=rem>0?`▶ Continue (${rem} round${rem!==1?'s':''} left)`:'▶ Play Again';
   showScreen('team-scores-screen');
 }
 
 function playAnotherRound() {
-  const roundsComplete = Math.floor(S.totalRoundsPlayed / S.teams.length);
-  if (roundsComplete >= S.teamRounds) {
-    // Reset for a fresh game with same teams
-    S.teamScores = S.teams.map(() => 0);
-    S.currentTeamIdx = 0;
-    S.totalRoundsPlayed = 0;
-  } else {
-    // Continue — next team in line
-    S.currentTeamIdx = S.totalRoundsPlayed % S.teams.length;
-  }
+  const roundsDone=Math.floor(S.totalRoundsPlayed/S.teams.length);
+  if (roundsDone>=S.teamRounds) { S.teamScores=S.teams.map(()=>0); S.currentTeamIdx=0; S.totalRoundsPlayed=0; }
+  else { S.currentTeamIdx=S.totalRoundsPlayed%S.teams.length; }
   showTeamTurnScreen();
 }
 
@@ -1161,35 +1021,28 @@ function playAnotherRound() {
 // HOME
 // ============================================================
 function goHome() {
-  clearInterval(S.timer);
-  stopTilt();
-  S.selDeck = null;
-  S.gameMode = 'solo';
-  document.querySelectorAll('.deck-btn').forEach(b => b.classList.remove('sel'));
-  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('sel'));
+  clearInterval(S.timer); stopTilt(); exitGameMode();
+  S.selDeck=null; S.gameMode='solo';
+  document.querySelectorAll('.deck-btn').forEach(b=>b.classList.remove('sel'));
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('sel'));
   document.querySelector('.mode-btn[data-mode="solo"]').classList.add('sel');
-  const goBtn = document.getElementById('goBtn');
-  goBtn.disabled = true;
-  goBtn.textContent = 'Choose a deck first';
-  buildDeckGrid();
-  showScreen('home-screen');
+  const g=document.getElementById('goBtn'); g.disabled=true; g.textContent='Choose a deck first';
+  buildDeckGrid(); showScreen('home-screen');
 }
 
 // ============================================================
-// KEYBOARD SHORTCUTS (desktop / testing)
+// KEYBOARD (desktop / testing)
 // ============================================================
 document.addEventListener('keydown', e => {
   if (!document.getElementById('play-screen').classList.contains('active')) return;
-  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); handleCorrect(); }
-  if (e.key === 'ArrowLeft') handlePass();
+  if (e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); handleCorrect(); }
+  if (e.key==='ArrowLeft') handlePass();
 });
 
 // ============================================================
-// PWA SERVICE WORKER
+// PWA
 // ============================================================
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
-}
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 
 // ============================================================
 // INIT
