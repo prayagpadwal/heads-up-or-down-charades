@@ -1,0 +1,25 @@
+{
+  "name": "Heads Up or Down: Charades",
+  "short_name": "Heads Up Free",
+  "description": "Free party charades game. No sign-up, no ads, no paid decks. 12 built-in decks, custom deck builder, team mode.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A0A0F",
+  "theme_color": "#0A0A0F",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
