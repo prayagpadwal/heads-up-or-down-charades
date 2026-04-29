@@ -557,31 +557,43 @@ let S = {
 // TILT — calibrated, always-on
 // ============================================================
 let tiltActive   = false;
-let gammaBaseline = null;
-let lastTiltTime  = 0;
-// 45° feels natural for a party game — firm enough to avoid false triggers,
-// easy enough that you don't need an exaggerated motion.
-const TILT_THRESHOLD = 45;
-const TILT_COOLDOWN  = 1500; // ms between triggers
+let tiltBaseline = null;
+let lastTiltTime = 0;
+// Threshold in "screen-faces-floor" units (-1 to +1 scale).
+// 0.65 ≈ 41° of tilt from the forehead starting position — deliberate but not extreme.
+const TILT_THRESHOLD = 0.65;
+const TILT_COOLDOWN  = 1500;
+
+// How much the screen faces the floor vs ceiling, regardless of starting angle.
+// Uses both beta + gamma so it works whether the phone is portrait, landscape,
+// or already tilted (e.g. held to forehead at 70° from horizontal).
+//   +1 = screen fully faces floor
+//    0 = screen faces audience (the forehead game position)
+//   -1 = screen fully faces ceiling
+// Derived from: gravity component along screen normal = -cos(beta)·cos(gamma)
+function screenTilt(beta, gamma) {
+  const b = (beta  || 0) * Math.PI / 180;
+  const g = (gamma || 0) * Math.PI / 180;
+  return -Math.cos(b) * Math.cos(g);
+}
 
 function handleOrientation(e) {
-  // gamma = rotation around the device's Y axis.
-  // When phone is held in landscape (physically rotated), gamma tracks
-  // the face-up / face-down tilt — exactly what we need.
-  if (!tiltActive || e.gamma === null) return;
+  if (!tiltActive || e.beta === null || e.gamma === null) return;
 
-  // Calibrate on first reading after game start
-  if (gammaBaseline === null) { gammaBaseline = e.gamma; return; }
+  const tilt = screenTilt(e.beta, e.gamma);
 
-  const now   = Date.now();
+  // Calibrate on first reading — wherever the phone is = 0°
+  if (tiltBaseline === null) { tiltBaseline = tilt; return; }
+
+  const now = Date.now();
   if (now - lastTiltTime < TILT_COOLDOWN) return;
 
-  const delta = e.gamma - gammaBaseline;
+  const delta = tilt - tiltBaseline;
 
-  if (delta > TILT_THRESHOLD) {       // face tilts DOWN toward floor → Got It
+  if (delta > TILT_THRESHOLD) {        // screen toward floor → Got It
     lastTiltTime = now;
     handleCorrect();
-  } else if (delta < -TILT_THRESHOLD) { // face tilts UP toward ceiling → Pass
+  } else if (delta < -TILT_THRESHOLD) { // screen toward ceiling → Pass
     lastTiltTime = now;
     handlePass();
   }
@@ -604,13 +616,13 @@ async function requestTiltPermission() {
 }
 
 function startTilt() {
-  gammaBaseline = null;  // will calibrate on first reading
-  tiltActive    = true;
+  tiltBaseline = null;  // will calibrate on first reading
+  tiltActive   = true;
 }
 
 function stopTilt() {
-  tiltActive    = false;
-  gammaBaseline = null;
+  tiltActive   = false;
+  tiltBaseline = null;
 }
 
 // ============================================================
