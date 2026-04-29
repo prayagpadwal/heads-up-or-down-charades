@@ -559,10 +559,11 @@ let S = {
 let tiltActive   = false;
 let tiltBaseline = null;
 let lastTiltTime = 0;
-// Threshold in "screen-faces-floor" units (-1 to +1 scale).
-// 0.65 ≈ 41° of tilt from the forehead starting position — deliberate but not extreme.
-const TILT_THRESHOLD = 0.65;
-const TILT_COOLDOWN  = 1500;
+// Asymmetric thresholds — pass (ceiling) is a physically awkward motion so
+// it triggers easier than correct (floor).
+const TILT_CORRECT = 0.60;  // ~37° toward floor  — natural forward nod
+const TILT_PASS    = 0.38;  // ~22° toward ceiling — awkward backward tilt
+const TILT_COOLDOWN = 1500;
 
 // How much the screen faces the floor vs ceiling, regardless of starting angle.
 // Uses both beta + gamma so it works whether the phone is portrait, landscape,
@@ -590,10 +591,10 @@ function handleOrientation(e) {
 
   const delta = tilt - tiltBaseline;
 
-  if (delta > TILT_THRESHOLD) {        // screen toward floor → Got It
+  if (delta > TILT_CORRECT) {       // screen toward floor → Got It
     lastTiltTime = now;
     handleCorrect();
-  } else if (delta < -TILT_THRESHOLD) { // screen toward ceiling → Pass
+  } else if (delta < -TILT_PASS) { // screen toward ceiling → Pass
     lastTiltTime = now;
     handlePass();
   }
