@@ -557,26 +557,31 @@ let S = {
 // TILT — calibrated, always-on
 // ============================================================
 let tiltActive   = false;
-let betaBaseline = null;
-let lastTiltTime = 0;
-const TILT_THRESHOLD = 30;   // degrees from baseline
-const TILT_COOLDOWN  = 1300; // ms between triggers
+let gammaBaseline = null;
+let lastTiltTime  = 0;
+// 45° feels natural for a party game — firm enough to avoid false triggers,
+// easy enough that you don't need an exaggerated motion.
+const TILT_THRESHOLD = 45;
+const TILT_COOLDOWN  = 1500; // ms between triggers
 
 function handleOrientation(e) {
-  if (!tiltActive || e.beta === null) return;
+  // gamma = rotation around the device's Y axis.
+  // When phone is held in landscape (physically rotated), gamma tracks
+  // the face-up / face-down tilt — exactly what we need.
+  if (!tiltActive || e.gamma === null) return;
 
   // Calibrate on first reading after game start
-  if (betaBaseline === null) { betaBaseline = e.beta; return; }
+  if (gammaBaseline === null) { gammaBaseline = e.gamma; return; }
 
   const now   = Date.now();
   if (now - lastTiltTime < TILT_COOLDOWN) return;
 
-  const delta = e.beta - betaBaseline;
+  const delta = e.gamma - gammaBaseline;
 
-  if (delta < -TILT_THRESHOLD) {      // face tilts DOWN → Got It
+  if (delta > TILT_THRESHOLD) {       // face tilts DOWN toward floor → Got It
     lastTiltTime = now;
     handleCorrect();
-  } else if (delta > TILT_THRESHOLD) { // face tilts UP → Pass
+  } else if (delta < -TILT_THRESHOLD) { // face tilts UP toward ceiling → Pass
     lastTiltTime = now;
     handlePass();
   }
@@ -599,13 +604,13 @@ async function requestTiltPermission() {
 }
 
 function startTilt() {
-  betaBaseline = null;  // will calibrate on first reading
-  tiltActive   = true;
+  gammaBaseline = null;  // will calibrate on first reading
+  tiltActive    = true;
 }
 
 function stopTilt() {
-  tiltActive   = false;
-  betaBaseline = null;
+  tiltActive    = false;
+  gammaBaseline = null;
 }
 
 // ============================================================
